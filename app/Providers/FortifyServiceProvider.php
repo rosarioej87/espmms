@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Fortify;
+use Laravel\Fortify\Contracts\LoginResponse;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -20,7 +21,7 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->registerResponseBindings();
     }
 
     /**
@@ -41,6 +42,29 @@ class FortifyServiceProvider extends ServiceProvider
 
         RateLimiter::for('two-factor', function (Request $request) {
             return Limit::perMinute(5)->by($request->session()->get('login.id'));
+        });
+    }
+
+    protected function registerResponseBindings() {
+        $this->app->instance(LoginResponse::class, new class implements LoginResponse {
+            public function toResponse($request) {
+                $role = auth()->user()->role_id;
+                $url = route('voyager.dashboard');
+                switch($role) {
+                    case '5':
+                    case '4':
+                    case '3':
+                    case '1':
+                        return redirect($url);
+                        break;
+                    case '2':
+                        return redirect()->intended(config('fortify.home'));
+                        break;
+                    default:
+                        return redirect('/');
+                        break;
+                }
+            }
         });
     }
 }
