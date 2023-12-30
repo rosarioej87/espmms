@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
+use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,4 +35,5 @@ Route::middleware([
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
+    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 });
