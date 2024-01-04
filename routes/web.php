@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
+use App\Http\Controllers\DocumentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,3 +38,13 @@ Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 });
+
+
+// PHPWord Manual input
+Route::controller(DocumentController::class)->group(function () {
+    Route::get('/create', 'create');
+    Route::post('/store', 'store');
+});
+
+// PHPWord Using Template
+Route::get('/document', DocumentController::class)->name('document'); // Working. Preferred
