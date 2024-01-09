@@ -1645,7 +1645,7 @@
 
     zIndex: 1000,
     shaderClass: "jsgrid-load-shader",
-    loadPanelClass: "jsgrid-load-panel",
+    loadPanelClass: "jsgrid-load-frontend",
 
     _init: function (config) {
       $.extend(true, this, config);

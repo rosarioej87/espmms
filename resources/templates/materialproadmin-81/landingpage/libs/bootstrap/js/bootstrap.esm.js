@@ -4145,7 +4145,7 @@ class Tab extends BaseComponent {
     }
     this._setAttributeIfNotExists(child, 'role', 'tab');
 
-    // set attributes to the related panel too
+    // set attributes to the related frontend too
     this._setInitialAttributesOnTargetPanel(child);
   }
   _setInitialAttributesOnTargetPanel(child) {

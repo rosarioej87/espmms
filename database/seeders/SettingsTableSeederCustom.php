@@ -35,8 +35,8 @@ class SettingsTableSeederCustom extends Seeder
 
         $setting = $this->findSetting('admin.description');
         $setting->fill([
-            'display_name' => 'Admin panel for The Vault',
-            'value'        => 'Admin panel for The Vault',
+            'display_name' => 'Admin frontend for The Vault',
+            'value'        => 'Admin frontend for The Vault',
             'details'      => '',
             'type'         => 'text',
             'order'        => 2,

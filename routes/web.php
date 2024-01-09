@@ -20,6 +20,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/pages', function () {
+    return view('pages');
+});
+
+Route::get('/dump', function () {
+    Spatie\DbDumper\Databases\MySql::create()
+        ->setDbName('laravel')
+        ->setUserName('root')
+        ->setPassword('')
+        ->dumpToFile('dump.sql');
+});
+
 Route::get('/blog', [BlogController::class, 'index']);
 Route::get('/blog/{slug}', [BlogController::class, 'post']);
 
@@ -40,11 +52,17 @@ Route::group(['prefix' => 'admin'], function () {
 });
 
 
-// PHPWord Manual input
 Route::controller(DocumentController::class)->group(function () {
-    Route::get('/create', 'create');
-    Route::post('/store', 'store');
+    // Convert Word to PDF (Dynamic)
+    Route::get('/document/convert-word-to-pdf', 'convertWordToPDF')->name('document.wordtopdf');
+
+    // Generate Word file using PHPWord with Template
+    Route::get('/document', DocumentController::class)->name('document'); // Working. Preferred
+
+    // Convert Word to PDF (Convert Only)
+    Route::get('/document/convert-doc-to-pdf', 'convertDocToPDF');
 });
 
-// PHPWord Using Template
-Route::get('/document', DocumentController::class)->name('document'); // Working. Preferred
+
+
+

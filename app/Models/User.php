@@ -58,4 +58,11 @@ class User extends \TCG\Voyager\Models\User
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function getFullNameAttribute()
+    {
+        return "{$this->name} {$this->email}";
+    }
+
+    public $additional_attributes = ['uname'];
 }

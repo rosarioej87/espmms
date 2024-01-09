@@ -39,7 +39,7 @@ $(function () {
   // Right sidebar options
   // ==============================================================
   $(function () {
-    $(".service-panel-toggle").on("click", function () {
+    $(".service-frontend-toggle").on("click", function () {
       $(".customizer").toggleClass("show-service-panel");
     });
     $(".page-wrapper").on("click", function () {
