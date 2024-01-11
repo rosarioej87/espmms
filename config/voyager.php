@@ -145,10 +145,12 @@ return [
         ],
 
         'widgets' => [
-            'TCG\\Voyager\\Widgets\\UserDimmer',
-            'TCG\\Voyager\\Widgets\\PostDimmer',
+//            'TCG\\Voyager\\Widgets\\UserDimmer',
+//            'TCG\\Voyager\\Widgets\\PostDimmer',
 //            'TCG\\Voyager\\Widgets\\PageDimmer',
-            'App\\Widgets\Programs'
+            'App\\Widgets\\ActionPlans',
+            'App\\Widgets\\Programs',
+            'App\\Widgets\\Projects',
         ],
 
     ],
@@ -212,14 +214,14 @@ return [
 
     'media' => [
         // The allowed mimetypes to be uploaded through the media-manager.
-        // 'allowed_mimetypes' => '*', //All types can be uploaded
-        'allowed_mimetypes' => [
-          'image/jpeg',
-          'image/png',
-          'image/gif',
-          'image/bmp',
-          'video/mp4',
-        ],
+         'allowed_mimetypes' => '*', //All types can be uploaded
+//        'allowed_mimetypes' => [
+//          'image/jpeg',
+//          'image/png',
+//          'image/gif',
+//          'image/bmp',
+//          'video/mp4',
+//        ],
         //Path for media-manager. Relative to the filesystem.
         'path'                => '/',
         'show_folders'        => true,

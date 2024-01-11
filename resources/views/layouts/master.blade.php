@@ -16,8 +16,8 @@
         <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
     </head>
     <body>
-        @include('partials.nav')
+        @include('blog.partials.nav')
         @yield('content')
-        @include('partials.footer')
+        @include('blog.partials.footer')
     </body>
 </html>

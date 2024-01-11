@@ -9,12 +9,12 @@ class BlogController extends Controller
 {
     public function index(){
         $posts = Post::orderBy('created_at', 'desc')->get();
-        return view('blog', compact('posts'));
+        return view('blog.blog', compact('posts'));
     }
 
     public function post($slug){
         $post = Post::where('slug', '=', $slug)->firstOrFail();
 
-        return view('post', compact('post'));
+        return view('blog.post', compact('post'));
     }
 }

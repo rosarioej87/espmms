@@ -23,7 +23,7 @@
     </style>
 </head>
 <body>
-    {!! menu('main', 'my_menu') !!}
+    {!! menu('main', 'voyager::menu.my_menu') !!}
     <img src="{{Voyager::image(setting('site.logo'))}}" />
     <h1>{!! setting('site.title') !!}</h1>
 {{--    <div class="container-fluid fixed-top p-4">--}}

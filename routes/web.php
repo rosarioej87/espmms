@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\DocumentController;
-
+use App\Http\Controllers\ReportController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,25 +15,6 @@ use App\Http\Controllers\DocumentController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/pages', function () {
-    return view('pages');
-});
-
-Route::get('/dump', function () {
-    Spatie\DbDumper\Databases\MySql::create()
-        ->setDbName('laravel')
-        ->setUserName('root')
-        ->setPassword('')
-        ->dumpToFile('dump.sql');
-});
-
-Route::get('/blog', [BlogController::class, 'index']);
-Route::get('/blog/{slug}', [BlogController::class, 'post']);
 
 Route::middleware([
     'auth:sanctum',
@@ -51,6 +32,27 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 });
 
+// ###############################################################################################
+
+Route::get('/run-command/{name_of_command}', \App\Http\Controllers\ExecuteArtisanCommandController::class);
+
+Route::get('/test', function () {
+    return Spatie\PdfToText\Pdf::getText('book.pdf', 'storage/poppler/library/bin/pdftotext.exe');
+});
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/pages', function () {
+    return view('pages');
+});
+
+// Blog
+Route::get('/blog', [BlogController::class, 'index']);
+Route::get('/blog/{slug}', [BlogController::class, 'post']);
+
+// Document
 
 Route::controller(DocumentController::class)->group(function () {
     // Convert Word to PDF (Dynamic)
@@ -63,6 +65,10 @@ Route::controller(DocumentController::class)->group(function () {
     Route::get('/document/convert-doc-to-pdf', 'convertDocToPDF');
 });
 
-
-
-
+// Reports
+Route::prefix('reports')->group(function () {
+    Route::get('/', function () {
+        return view('report.report');
+    });
+    Route::get('/monitoring-pdf', [ReportController::class, 'generate'])->name('reports.print-monitoring');
+});

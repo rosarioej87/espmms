@@ -2,13 +2,13 @@
 
 namespace App\Widgets;
 
-use App\Models\Program;
+use App\Models\Project;
 use Arrilot\Widgets\AbstractWidget;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use TCG\Voyager\Facades\Voyager;
 
-class Programs extends AbstractWidget
+class Projects extends AbstractWidget
 {
     /**
      * The configuration array.
@@ -23,18 +23,18 @@ class Programs extends AbstractWidget
      */
     public function run()
     {
-        $count = \App\Models\Program::count();
-        $string = 'Programs';
+        $count = \App\Models\Project::count();
+        $string = 'Projects';
 
         return view('voyager::dimmer', array_merge($this->config, [
-            'icon'   => 'voyager-lightbulb',
+            'icon'   => 'voyager-paperclip',
             'title'  => "{$count} {$string}",
             'text'   => 'You have '.$count.' '.Str::lower($string).' in your database. '.'Click on button below to view all '.Str::lower($string),
             'button' => [
-                'text' => 'Programs',
-                'link' => route('voyager.programs.index'),
+                'text' => 'Projects',
+                'link' => route('voyager.projects.index'),
             ],
-            'image' => 'storage/images/widgets/programs-bg.jpg',
+            'image' => 'storage/images/widgets/projects-bg.jpg',
         ]));
     }
 
@@ -45,7 +45,7 @@ class Programs extends AbstractWidget
      */
     public function shouldBeDisplayed()
     {
-        $program = Program::first();
-        return Auth::user()->can('browse', $program);
+        $project = Project::first();
+        return Auth::user()->can('browse', $project);
     }
 }

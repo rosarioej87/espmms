@@ -1,0 +1,48 @@
+table.minimalistBlack {
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
+}
+table.minimalistBlack td, table.minimalistBlack th {
+    border: 1px solid #000000;
+    padding: 5px 4px;
+}
+table.minimalistBlack tbody td {
+    font-size: 13px;
+    text-align: center;
+}
+table.minimalistBlack thead {
+    border-bottom: 3px solid #000000;
+}
+table.minimalistBlack thead th {
+    font-size: 15px;
+    font-weight: bold;
+    color: #000000;
+    text-align: center;
+}
+table.minimalistBlack tfoot td {
+    font-size: 14px;
+}
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+p.date {
+    text-align: right;
+}
+
+p.main {
+    text-align: justify;
+}
+
+div.header {
+    font-weight: bold;
+    text-align: center;
+    font-family: Rockwell, Times, "Times New Roman", serif;
+}
+
+.pagebreak { page-break-after: always; } /* page-break-after works, as well */
+
+
