@@ -15,8 +15,7 @@ class ReportController extends Controller
 
     public function generate()
     {
-        $data = User::all();
-
+        $data = '';
         $fileName = 'monitoring-and-evaluation.pdf';
         $mpdf = new \Mpdf\Mpdf([
             'orientation' => 'L',
@@ -30,10 +29,6 @@ class ReportController extends Controller
         ]);
         $html = \View::make('report.report')->with('data', $data);
         $html = $html->render();
-        // $header = \View::make('pdf._header');
-        // $header = $header->render();
-        // $mpdf->SetHeader($header);
-        $mpdf->SetFooter('Extension Services Project Management and Monitoring System');
         $stylesheet = file_get_contents('css/mpdf.css');
         $mpdf->WriteHTML($stylesheet,\Mpdf\HTMLParserMode::HEADER_CSS);
         $mpdf->WriteHTML($html,\Mpdf\HTMLParserMode::HTML_BODY);

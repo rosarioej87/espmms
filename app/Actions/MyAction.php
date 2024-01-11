@@ -30,7 +30,7 @@ class MyAction extends AbstractAction
 
     public function getDefaultRoute()
     {
-        return route('voyager.programs.show', $this->data->program_id);
+        return route('voyager.programs.show', $this->data->program_id ?: '0');
     }
 
     public function shouldActionDisplayOnDataType()

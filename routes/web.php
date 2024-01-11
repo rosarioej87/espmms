@@ -36,16 +36,12 @@ Route::group(['prefix' => 'admin'], function () {
 
 Route::get('/run-command/{name_of_command}', \App\Http\Controllers\ExecuteArtisanCommandController::class);
 
-Route::get('/test', function () {
-    return Spatie\PdfToText\Pdf::getText('book.pdf', 'storage/poppler/library/bin/pdftotext.exe');
-});
-
 Route::get('/', function () {
     return view('welcome');
 });
 
 Route::get('/pages', function () {
-    return view('pages');
+    return view('test.pages');
 });
 
 // Blog
@@ -70,5 +66,5 @@ Route::prefix('reports')->group(function () {
     Route::get('/', function () {
         return view('report.report');
     });
-    Route::get('/monitoring-pdf', [ReportController::class, 'generate'])->name('reports.print-monitoring');
+    Route::get('/action-plans', [ReportController::class, 'generate'])->name('reports.print-monitoring');
 });

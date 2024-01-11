@@ -18,20 +18,35 @@ class ActionPlan extends Model
         return $this->hasMany(Program::class);
     }
 
+    public function semester()
+    {
+        return $this->belongsTo(Semester::class);
+    }
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
+
     public function scopeActive(Builder $query): void
     {
         $query->where('active', 1);
     }
 
-    public function getCurrentAttribute()
-    {
-        return "{$this->academic_year} {$this->academic_term}";
-    }
-
-    public $additional_attributes = ['current'];
-
     public function scopeOrder($query)
     {
         return $query->orderBy('active', 'desc');
     }
+
+    public function getCurrentAttribute()
+    {
+        return "{$this->semester->getCurrentAttribute()}";
+    }
+
+    public function getDetailAttribute()
+    {
+        return "{$this->department->name}, {$this->getCurrentAttribute()}";
+    }
+
+    public $additional_attributes = ['current', 'detail'];
 }

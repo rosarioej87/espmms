@@ -93,7 +93,7 @@
                     @else
                         <ul>
                             @foreach($datasets as $dataset)
-                                <li><a href="{{ route('voyager.projects.show', $dataset->{$options->key}) }}" target="_blank">{{ $dataset->name }}</a></li>
+                                <li><a href="{{ route('voyager.projects.show', $dataset->{$options->key}) }}" target="_blank">{{ $dataset->{$options->label} }}</a></li>
                             @endforeach
                         </ul>
                     @endif

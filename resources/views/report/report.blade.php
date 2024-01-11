@@ -8,18 +8,20 @@
 </head>
 <body>
 <div class="report">
-
+    <?php $actionPlans = App\Models\ActionPlan::where('active', 1)->get() ; ?>
+    @foreach ($actionPlans as $actionPlan)
     <div class="header">
         <header>
             <div class="center" style="width: 45%">
-                <img src="/css/img/logo.png" alt="BTS">
+                <img src="/storage/images/mpdf/logo.png" alt="BTS">
             </div>
-            <h3>EXTENSION SERVICES OFFICE</h3>
+            <h3>{{ strtoupper($actionPlan->department->name) }}</h3>
         </header>
     </div>
 
+
     <div class="header">
-        <h3>ACTION PLAN <br> SECOND SEMESTER, SCHOOL YEAR 2022-23</h3>
+        <h3>ACTION PLAN <br> {{ strtoupper($actionPlan->semester->academic_term) }}, SCHOOL YEAR {{ $actionPlan->semester->academic_year }}</h3>
     </div>
     <br>
 
@@ -43,36 +45,61 @@
             </tr>
             </thead>
             <tbody>
+                @foreach ($actionPlan->programs as $program)
+                @foreach ($program->projects as $project)
 
-            <?php $actionPlans = App\Models\ActionPlan::all() ; ?>
-            @foreach($actionPlans as $actionPlan)
-                @foreach($actionPlan->programs as $program)
-                    @foreach($program->projects as $project)
             <tr>
-                <td><strong>{{ $project->program->name }}</strong></td>
-                <td>{{ $project->name }}</td>
-                <td></td>
-                <td style="width: 150px;">{{ Carbon\Carbon::parse(now())->toFormattedDateString('d-m-Y i') }} to <br>
-                    {{ Carbon\Carbon::parse(now())->toFormattedDateString('d-m-Y i') }}
+                <td>{{ $project->program->title }}</td>
+                <td>{{ $project->title }}</td>
+                <td>
+                    {{ implode(', ', $project->personsResponsible()->get()->pluck('name')->toArray()) }}
+                    @if ($project->personsResponsible()->count() > 0)
+                        <br>
+                    @endif
+                </td>
+                <td style="width: 150px;">{{ Carbon\Carbon::parse($project->start_date)->toFormattedDateString('d-m-Y i') }} to <br>
+                    {{ Carbon\Carbon::parse($project->end_date)->toFormattedDateString('d-m-Y i') }}
 
                 </td>
-                <td>Saint Louis College</td>
-                <td></td>
-                <td></td>
+                <td>{{ $project->venue }}</td>
+                <td>
+                    {{ implode(', ', $project->clientPartners()->get()->pluck('name')->toArray()) }}
+                    @if ($project->clientPartners()->count() > 0)
+                        <br>
+                    @endif
+                </td>
+                <td>
+                    {{ implode(', ', $project->missionPartnerAgencies()->get()->pluck('name')->toArray()) }}
+                    @if ($project->missionPartnerAgencies()->count() > 0)
+                        <br>
+                    @endif
+                    {{ implode(', ', $project->departments()->get()->pluck('name')->toArray()) }}
+                    @if ($project->departments()->count() > 0)
+                        <br>
+                    @endif
+                    {{ implode(', ', $project->organizations()->get()->pluck('name')->toArray()) }}
+                    @if ($project->organizations()->count() > 0)
+                        <br>
+                    @endif
+                </td>
             </tr>
-            @endforeach
-            @endforeach
-            @endforeach
+
+                @endforeach
+                @endforeach
             </tbody>
         </table>
 
     </div>
-
-    <br><br><br>
+<div>
+    <div class="pagebreak"></div>
     <footer>
-        <p><strong>{{ auth()->user()->name }}<br> Extension Services Coordinator</strong></p>
+        <p>Prepared by:</p>
+        <br>
+        <p><strong>{{ strtoupper(auth()->user()->name) }}<br> Social Action Coordinator</strong></p>
     </footer>
-
+</div>
+            <div class="pagebreak"></div>
+@endforeach
 </div>
 </body>
 </html>

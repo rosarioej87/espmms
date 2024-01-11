@@ -9,9 +9,4 @@ class AcademicTerm extends Model
 {
     use HasFactory;
     protected $guarded = [];
-
-    public function scopeActive(Builder $query): void
-    {
-        $query->where('active', 1);
-    }
 }

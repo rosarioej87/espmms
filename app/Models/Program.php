@@ -16,7 +16,7 @@ class Program extends Model
         return $this->hasMany(Project::class);
     }
 
-    public function action_plan()
+    public function actionPlan()
     {
         return $this->belongsTo(ActionPlan::class);
     }
@@ -25,10 +25,4 @@ class Program extends Model
     {
         $query->where('active', 1);
     }
-
-    public function scopeActionPlanActive ($query)
-    {
-        $query->where('active', 1);
-    }
-
 }
