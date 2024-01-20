@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 </head>
 <body>
+
 <div class="report">
     <?php $actionPlans = App\Models\ActionPlan::where('active', 1)->get() ; ?>
     @foreach ($actionPlans as $actionPlan)
@@ -57,8 +58,14 @@
                         <br>
                     @endif
                 </td>
-                <td style="width: 150px;">{{ Carbon\Carbon::parse($project->start_date)->toFormattedDateString('d-m-Y i') }} to <br>
-                    {{ Carbon\Carbon::parse($project->end_date)->toFormattedDateString('d-m-Y i') }}
+                <td style="width: 150px;">
+                    @if ($project->start_date)
+                        {{ Carbon\Carbon::parse($project->start_date)->toFormattedDateString('d-m-Y i') }}
+                    @endif
+                    @if ($project->end_date)
+                            to <br>
+                        {{ Carbon\Carbon::parse($project->end_date)->toFormattedDateString('d-m-Y i') }}
+                    @endif
 
                 </td>
                 <td>{{ $project->venue }}</td>
@@ -101,5 +108,6 @@
             <div class="pagebreak"></div>
 @endforeach
 </div>
+
 </body>
 </html>

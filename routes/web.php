@@ -64,7 +64,8 @@ Route::controller(DocumentController::class)->group(function () {
 // Reports
 Route::prefix('reports')->group(function () {
     Route::get('/', function () {
-        return view('report.report');
+        return view('report.action-plan');
     });
-    Route::get('/action-plans', [ReportController::class, 'generate'])->name('reports.print-monitoring');
+    Route::get('/action-plans-pdf', [ReportController::class, 'actionPlan'])->name('action-plans-pdf');
+    Route::get('/semestral-reports-pdf', [ReportController::class, 'semestralReport'])->name('semestral-reports-pdf');
 });

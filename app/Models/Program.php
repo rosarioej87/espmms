@@ -16,11 +16,6 @@ class Program extends Model
         return $this->hasMany(Project::class);
     }
 
-    public function actionPlan()
-    {
-        return $this->belongsTo(ActionPlan::class);
-    }
-
     public function scopeActive(Builder $query): void
     {
         $query->where('active', 1);

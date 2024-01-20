@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Actions;
+namespace App\Actions\Voyager;
 
 use TCG\Voyager\Actions\AbstractAction;
 
-class MyAction extends AbstractAction
+class ReadProgram extends AbstractAction
 {
     public function getTitle()
     {
@@ -37,15 +37,4 @@ class MyAction extends AbstractAction
     {
         return $this->dataType->slug == 'projects';
     }
-
-//    public function shouldActionDisplayOnRow($row)
-//    {
-//        return $row->id > 10;
-//    }
-//
-//    public function massAction($ids, $comingFrom)
-//    {
-//        // Do something with the IDs
-//        return redirect($comingFrom);
-//    }
 }
